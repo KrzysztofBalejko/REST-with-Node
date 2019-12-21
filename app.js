@@ -4,6 +4,11 @@ const dotenv = require("dotenv");
 
 const app = express();
 
+// Importing routes
+const postsRoute = require('./routes/posts');
+
+app.use('/posts', postsRoute);
+
 
 // Connecting to DB
 dotenv.config();
@@ -16,7 +21,7 @@ mongoose.connect(process.env.DB_CONNECT,
 
 // Routes
 app.get('/', (req,res) => {
-    res.send('Home page')
+    res.send('Home page');
 });
 
 
