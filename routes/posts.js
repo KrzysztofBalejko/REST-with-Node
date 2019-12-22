@@ -15,15 +15,12 @@ router.get('/', async (req, res) => {
 
 // Get a specific post
 router.get('/:postId', async (req,res) => {
-
     try{
         const post = await Post.findById(req.params.postId)
         res.json(post);
     }catch(err){
         res.json({message: err});
     }
-
-
 });
 
 // Post a post
@@ -41,7 +38,16 @@ router.post('/', async (req, res) => {
     }catch(err){
         res.json({message: err});
     }
+});
 
+// Delete post
+router.delete('/:postId', async (req,res) => {
+    try{
+        const removePost = await Post.remove({_id: req.params.postId});
+        res.json(removePost);
+    }catch(err){
+        res.json({message: err});
+    }
 });
 
 
