@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+
 // Get a specific post
 router.get('/:postId', async (req,res) => {
     try{
@@ -22,6 +23,7 @@ router.get('/:postId', async (req,res) => {
         res.json({message: err});
     }
 });
+
 
 // Post a post
 router.post('/', async (req, res) => {
@@ -40,6 +42,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+
 // Delete post
 router.delete('/:postId', async (req,res) => {
     try{
@@ -50,6 +53,19 @@ router.delete('/:postId', async (req,res) => {
     }
 });
 
+
+// Update post
+router.patch('/:postId', async (req,res) => {
+    try{
+        const updatedPost = await Post.updateOne(
+            {_id: req.params.postId},
+            {$set: {title: req.body.title}}
+        );
+        res.json(updatedPost);
+    }catch(err){
+        res.json({message: err});
+    }
+});
 
 
 module.exports = router;
