@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     res.send('Posts page');
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
 
     const post = new Post({
         title: req.body.title,
@@ -15,13 +15,12 @@ router.post('/', (req, res) => {
     });
 
     // Saving to the db
-    post.save()
-    .then(data => {
-        res.json(data);
-    })
-    .catch(err => {
-        res.json({message: err });
-    })
+    try {
+        const savedPost = await post.save();
+        res.json(savedPost);
+    }catch(err){
+        res.json({message: err});
+    }
     
 
 });
